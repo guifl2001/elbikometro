@@ -10,12 +10,12 @@ Mais detalhes no site da disciplina:
 
 Integrantes:
 
-- Nome 
-- Nome
+- Guilherme Fontana Louro
+- Enricco Gehma
 
 Nome da marca:
 
-- Nome e logo?
+- El bikometro
 
 ## Interface
 
