@@ -228,7 +228,7 @@ e.g. "stm32f769xx.h" or "stm32f429xx.h"*/
 #  define lv_snprintf  snprintf
 #  define lv_vsnprintf vsnprintf
 #else   /*LV_SPRINTF_CUSTOM*/
-#  define LV_SPRINTF_USE_FLOAT 0
+#  define LV_SPRINTF_USE_FLOAT 1
 #endif  /*LV_SPRINTF_CUSTOM*/
 
 #define LV_USE_USER_DATA 1
@@ -296,7 +296,7 @@ e.g. "stm32f769xx.h" or "stm32f429xx.h"*/
 #define LV_FONT_MONTSERRAT_18 0
 #define LV_FONT_MONTSERRAT_20 0
 #define LV_FONT_MONTSERRAT_22 0
-#define LV_FONT_MONTSERRAT_24 0
+#define LV_FONT_MONTSERRAT_24 1
 #define LV_FONT_MONTSERRAT_26 0
 #define LV_FONT_MONTSERRAT_28 0
 #define LV_FONT_MONTSERRAT_30 0
