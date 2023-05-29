@@ -70,87 +70,7 @@ void create_aro_section(lv_obj_t * screen, const lv_font_t *MontAltEL20, lv_img_
 	
 }
 
-static void plus_peso_event_cb(lv_event_t * e)
-{
-	lv_event_code_t code = lv_event_get_code(e);
-
-	if(code == LV_EVENT_CLICKED) {
-		LV_LOG_USER("Clicked");
-		peso_kg++;
-		xQueueSend(xQueueWeight, &peso_kg, 0);
-	}
-	else if(code == LV_EVENT_VALUE_CHANGED) {
-		LV_LOG_USER("Toggled");
-	}
-}
-
-static void minus_peso_event_cb(lv_event_t * e)
-{
-	lv_event_code_t code = lv_event_get_code(e);
-
-	if(code == LV_EVENT_CLICKED) {
-		LV_LOG_USER("Clicked");
-		peso_kg--;
-		xQueueSend(xQueueWeight, &peso_kg, 0);
-	}
-	else if(code == LV_EVENT_VALUE_CHANGED) {
-		LV_LOG_USER("Toggled");
-	}
-
-}
-
 void create_peso_section(lv_obj_t * screen, const lv_font_t *MontAltEL20, const lv_img_dsc_t *img_peso_) {
-	static lv_style_t textStyle;
-	lv_style_init(&textStyle);
-	lv_style_set_border_width(&textStyle, 0);
-	lv_style_set_text_color(&textStyle, lv_color_black());
-	
-	labelPesoValue = lv_label_create(screen);
-	lv_obj_align(labelPesoValue, LV_ALIGN_TOP_RIGHT, -55, 70);
-	lv_obj_add_style(labelPesoValue, &textStyle, 0);
-	lv_obj_set_style_text_font(labelPesoValue, MontAltEL20, LV_STATE_DEFAULT);
-	lv_label_set_text_fmt(labelPesoValue, "%d", peso_kg);
-	
-	labelPesoText = lv_label_create(screen);
-	lv_obj_align(labelPesoText, LV_ALIGN_TOP_RIGHT, -70, 35);
-	lv_obj_add_style(labelPesoText, &textStyle, 0);
-	lv_obj_set_style_text_font(labelPesoText, MontAltEL20, LV_STATE_DEFAULT);
-	lv_label_set_text(labelPesoText, "Peso");
-	
-	labelPesoUnit = lv_label_create(screen);
-	lv_obj_add_style(labelPesoUnit, &textStyle, 0);
-	lv_obj_align_to(labelPesoUnit, labelPesoValue, LV_ALIGN_OUT_RIGHT_MID, 2, -4);
-	lv_obj_set_style_text_font(labelPesoUnit, MontAltEL20, LV_STATE_DEFAULT);
-	lv_label_set_text(labelPesoUnit, "kg");
-	
-	static lv_style_t style_def;
-	lv_style_init(&style_def);
-	lv_style_set_bg_color(&style_def, lv_color_black());
-	lv_style_set_text_color(&style_def, lv_color_white());
-	
-	lv_obj_t * minus = lv_btn_create(screen);     /*Add a button the current screen*/
-	lv_obj_align_to(minus, labelPesoValue, LV_ALIGN_OUT_LEFT_MID, -5, 0);
-	lv_obj_set_size(minus, 20, 20);                         /*Set its size*/
-	lv_obj_add_style(minus, &style_def, 0);
-	lv_obj_add_event_cb(minus, minus_peso_event_cb, LV_EVENT_ALL, NULL);           /*Assign a callback to the button*/
-	lv_obj_t * label1 = lv_label_create(minus);          /*Add a label to the button*/
-	lv_label_set_text(label1, "-");                     /*Set the labels text*/
-	lv_obj_center(label1);
-	
-	lv_obj_t * plus = lv_btn_create(screen);     /*Add a button the current screen*/
-	lv_obj_align_to(plus, labelPesoUnit, LV_ALIGN_OUT_RIGHT_MID, 5, 0);
-	lv_obj_set_size(plus, 20, 20);                          /*Set its size*/
-	lv_obj_add_style(plus, &style_def, 0);
-	lv_obj_add_event_cb(plus, plus_peso_event_cb, LV_EVENT_ALL, NULL);           /*Assign a callback to the button*/
-
-	lv_obj_t * label2 = lv_label_create(plus);          /*Add a label to the button*/
-	lv_label_set_text(label2, "+");                     /*Set the labels text*/
-	lv_obj_center(label2);
-	
-	// Icone do peso
-	img_peso = lv_img_create(screen);
-	lv_img_set_src(img_peso, img_peso_);
-	lv_obj_align_to(img_peso, labelPesoText, LV_ALIGN_OUT_RIGHT_MID, 40, 0);
 }
 
 static void plus_h_event_cb(lv_event_t * e)
@@ -248,7 +168,7 @@ void create_horario_section(lv_obj_t *screen, const lv_font_t *MontAltEL20, cons
 	lv_style_set_text_color(&textStyle, lv_color_black());
 	
 	labelHorarioText = lv_label_create(screen);
-	lv_obj_align(labelHorarioText, LV_ALIGN_RIGHT_MID, -40, -30);
+	lv_obj_align(labelHorarioText, LV_ALIGN_TOP_RIGHT, -40, 40);
 	lv_obj_add_style(labelHorarioText, &textStyle, 0);
 	lv_obj_set_style_text_font(labelHorarioText, MontAltEL20, LV_STATE_DEFAULT);
 	lv_label_set_text(labelHorarioText, "Horario");
@@ -376,15 +296,6 @@ void create_horario_section(lv_obj_t *screen, const lv_font_t *MontAltEL20, cons
 	lv_style_set_bg_color(&style_line, lv_color_white());
 	lv_style_set_line_color(&style_line, lv_color_black());
 	lv_style_set_line_rounded(&style_line, true);
-	
-	// Linha para dividir a parte da velocidade da parte da viagem
-	static lv_point_t line_points[] = { {0, 20}, {125, 20} };
-	lv_obj_t * line1;
-	line1 = lv_line_create(screen);
-	lv_line_set_points(line1, line_points, 2);     /*Set the points*/
-	lv_obj_add_style(line1, &style_line, 0);
-	lv_obj_center(line1);
-	lv_obj_align(line1, LV_ALIGN_RIGHT_MID, 10, -53);
 	
 	// Linha vertical de todas as caixas
 	static lv_point_t line_boxes_points[] = { {0, 0}, {0, 245} };

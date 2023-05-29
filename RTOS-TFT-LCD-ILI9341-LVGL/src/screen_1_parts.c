@@ -108,7 +108,7 @@ void create_dist_div(lv_obj_t *screen, const lv_font_t *MontAltEL20, lv_style_t 
 
 void create_velm_div(lv_obj_t *screen, const lv_font_t *MontAltEL20, lv_style_t *textStyle) {
 	labelVelMTitle = lv_label_create(screen);
-	lv_obj_align(labelVelMTitle, LV_ALIGN_RIGHT_MID, -28, 40);
+	lv_obj_align(labelVelMTitle, LV_ALIGN_RIGHT_MID, -28, 55);
 	lv_obj_add_style(labelVelMTitle, textStyle, 0);
 	lv_obj_set_style_text_font(labelVelMTitle, MontAltEL20, LV_STATE_DEFAULT);
 	lv_label_set_text(labelVelMTitle, "Vel. med");
@@ -126,28 +126,6 @@ void create_velm_div(lv_obj_t *screen, const lv_font_t *MontAltEL20, lv_style_t 
 	lv_label_set_text(labelVelMUnit, "km/h");
 	
 }
-
-void create_cal_div(lv_obj_t *screen, const lv_font_t *MontAltEL20, lv_style_t *textStyle) {
-	labelCalTitle = lv_label_create(screen);
-	lv_obj_align(labelCalTitle, LV_ALIGN_RIGHT_MID, -70, 85);
-	lv_obj_add_style(labelCalTitle, textStyle, 0);
-	lv_obj_set_style_text_font(labelCalTitle, MontAltEL20, LV_STATE_DEFAULT);
-	lv_label_set_text(labelCalTitle, "Cals.");
-	
-	labelCalValue = lv_label_create(screen);
-	lv_obj_align_to(labelCalValue, labelCalTitle,  LV_ALIGN_OUT_BOTTOM_MID, 5, -1);
-	lv_obj_add_style(labelCalValue, textStyle, 0);
-	lv_obj_set_style_text_font(labelCalValue, MontAltEL20, LV_STATE_DEFAULT);
-	lv_label_set_text_fmt(labelCalValue, "%.01f", 0.0);
-	
-	labelCalUnit = lv_label_create(screen);
-	lv_obj_align_to(labelCalUnit, labelCalValue, LV_ALIGN_OUT_RIGHT_MID, 8, -5);
-	lv_obj_add_style(labelCalUnit, textStyle, 0);
-	lv_obj_set_style_text_font(labelCalUnit, MontAltEL20, LV_STATE_DEFAULT);
-	lv_label_set_text(labelCalUnit, "kcal");
-	
-}
-
 
 void rotate_img(void *var, int32_t val) {
 	lv_img_set_angle(var, val);
@@ -261,7 +239,6 @@ void create_viagem_section(lv_obj_t *screen, const lv_font_t *MontAltEL20, viage
 	// --------------------------- Criacao das divs ---------------------------
 	create_dist_div(screen, MontAltEL20, &textStyle);
 	create_velm_div(screen, MontAltEL20, &textStyle);
-	create_cal_div(screen, MontAltEL20, &textStyle);
 	
 	// --------------------------- Linhas de divisao ---------------------------
 	static lv_style_t style_line;
@@ -303,12 +280,5 @@ void create_viagem_section(lv_obj_t *screen, const lv_font_t *MontAltEL20, viage
 	lv_line_set_points(line_vel_med, line_vel_m_points, 2);
 	lv_obj_add_style(line_vel_med, &style_line, 0);
 	lv_obj_center(line_vel_med);
-	
-	// Linha horizontal de cima das calorias
-	static lv_point_t line_cals_points[] = { {120, 145}, {240, 145} };
-	lv_obj_t *line_cals = lv_line_create(screen);
-	lv_line_set_points(line_cals, line_cals_points, 2);
-	lv_obj_add_style(line_cals, &style_line, 0);
-	lv_obj_center(line_cals);
 	
 }
