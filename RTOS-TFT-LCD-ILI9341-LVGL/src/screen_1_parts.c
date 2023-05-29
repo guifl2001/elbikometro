@@ -127,6 +127,9 @@ void create_velm_div(lv_obj_t *screen, const lv_font_t *MontAltEL20, lv_style_t 
 	
 }
 
+void create_cal_div(lv_obj_t *screen, const lv_font_t *MontAltEL20, lv_style_t *textStyle) {
+}
+
 void rotate_img(void *var, int32_t val) {
 	lv_img_set_angle(var, val);
 }
@@ -173,18 +176,6 @@ static void play_pause_handler(lv_event_t * e) {
 }
 
 static void stop_handler(lv_event_t * e) {
-	lv_event_code_t code = lv_event_get_code(e);
-
-	if(code == LV_EVENT_CLICKED) {
-		LV_LOG_USER("Clicked");
-		handle_logo_animation(0);
-		is_viagem_on = 0;
-		char sent_char = 'S';
-		xQueueSend(xQueueViagem, &sent_char, 0);
-	}
-	else if(code == LV_EVENT_VALUE_CHANGED) {
-		LV_LOG_USER("Toggled");
-	}
 }
 
 
@@ -227,14 +218,7 @@ void create_viagem_section(lv_obj_t *screen, const lv_font_t *MontAltEL20, viage
 	lv_obj_add_style(playPauseButton, &style_def, 0);
 	lv_obj_add_style(playPauseButton, &style_pr, LV_STATE_PRESSED);
 	lv_obj_add_event_cb(playPauseButton, play_pause_handler, LV_EVENT_ALL, NULL);
-	lv_obj_align(playPauseButton, LV_ALIGN_LEFT_MID, 15, 50);
-	
-	lv_obj_t *stopButton = lv_imgbtn_create(screen);
-	lv_imgbtn_set_src(stopButton, LV_IMGBTN_STATE_RELEASED, imgs.stop_button, NULL, NULL);
-	lv_obj_add_style(stopButton, &style_def, 0);
-	lv_obj_add_style(stopButton, &style_pr, LV_STATE_PRESSED);
-	lv_obj_add_event_cb(stopButton, stop_handler, LV_EVENT_ALL, NULL);
-	lv_obj_align_to(stopButton, playPauseButton, LV_ALIGN_OUT_BOTTOM_MID, 0, -60);
+	lv_obj_align(playPauseButton, LV_ALIGN_LEFT_MID, 20, 70);
 	
 	// --------------------------- Criacao das divs ---------------------------
 	create_dist_div(screen, MontAltEL20, &textStyle);
